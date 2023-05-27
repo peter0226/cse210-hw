@@ -82,8 +82,9 @@ public class Scripture
                     text +="_";
                     contador++;
                 }
+                text +=" ";
             }
-            text +=" ";
+            
         }
 
         return text.TrimEnd();
