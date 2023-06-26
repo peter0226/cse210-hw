@@ -32,7 +32,7 @@ abstract class Goal
 
     public virtual string Serialize()
     {
-        // Implementación de la serialización en la clase base Goal
+        
         return string.Empty;
     }
 
@@ -56,8 +56,6 @@ abstract class Goal
     }
 
     public virtual void Load(){}
-
-    //public abstract string Serialize();
     
     
 }

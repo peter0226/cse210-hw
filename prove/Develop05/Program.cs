@@ -5,10 +5,10 @@ using System.Linq;
 
 class Program
 {
-    static List<Goal> goals = new List<Goal>();
-    static List<int> levelsScore = new List<int>();
-    static int myLevel = 0;
-    static int userScore = 0;
+    static List<Goal> _goals = new List<Goal>();
+    static List<int> _levelsScore = new List<int>();
+    static int _userLevel = 0;
+    static int _userScore = 0;
 
     static void Main(string[] args)
     {
@@ -81,13 +81,26 @@ class Program
                     exit = true;
                     break;
                 case "2":
-                    Console.WriteLine("You are at level {0}",myLevel);
+                    Console.WriteLine("You are at level {0}",_userLevel);
                     exit = true;
                     break;
                 case "3":
-                    Console.Write("Write the minimum score for level {0}:",levelsScore.Count+1);
-                    int points = int.Parse(Console.ReadLine());
-                    levelsScore.Add(points);
+                    bool validScore = false;
+                    while (!validScore)
+                    {
+                        Console.Write("Write the minimum score for level {0}: ", _levelsScore.Count + 1);
+                        int points = int.Parse(Console.ReadLine());
+
+                        if (_levelsScore.Count == 0 || points > _levelsScore[_levelsScore.Count - 1])
+                        {
+                            _levelsScore.Add(points);
+                            validScore = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The score must be greater than the previous score.");
+                        }
+                    }
                     exit = true;
                     break;
                 default:
@@ -99,10 +112,10 @@ class Program
     }
 
     static void showLevels(){
-        if(levelsScore.Count>0){
-            for (int i = 0; i < levelsScore.Count; i++)
+        if(_levelsScore.Count>0){
+            for (int i = 0; i < _levelsScore.Count; i++)
             {
-                Console.WriteLine("Nivel " + (i + 1) + ": " + levelsScore[i]);
+                Console.WriteLine("Nivel " + (i + 1) + ": " + _levelsScore[i]);
             }
         }else{
             Console.WriteLine("No levels entered");
@@ -112,11 +125,11 @@ class Program
     static void DetermineUserLevel()
     {
 
-        for (int i = 0; i < levelsScore.Count; i++)
+        for (int i = 0; i < _levelsScore.Count; i++)
         {
-            if (userScore >= levelsScore[i])
+            if (_userScore >= _levelsScore[i])
             {
-                myLevel = i + 1;
+                _userLevel = i + 1;
             }
             else
             {
@@ -142,19 +155,19 @@ class Program
             {
                 case "1":
                     SimpleGoal simpleGoal = SimpleGoal.Create();
-                    goals.Add(simpleGoal);
+                    _goals.Add(simpleGoal);
                     ShowUserScore();
                     exit = true;
                     break;
                 case "2":
                     EternalGoal eternalGoal = EternalGoal.Create();
-                    goals.Add(eternalGoal);
+                    _goals.Add(eternalGoal);
                     ShowUserScore();
                     exit = true;
                     break;
                 case "3":
                     ChecklistGoal checklistGoal = ChecklistGoal.Create();
-                    goals.Add(checklistGoal);
+                    _goals.Add(checklistGoal);
                     ShowUserScore();
                     exit = true;
                     break;
@@ -169,27 +182,27 @@ class Program
     {
         Console.WriteLine("The goals are:");
 
-        if (goals.Count == 0)
+        if (_goals.Count == 0)
         {
             Console.WriteLine("There are no registered targets.");
         }
         else
         {
-            for (int i = 0; i < goals.Count; i++)
+            for (int i = 0; i < _goals.Count; i++)
             {
-                Console.WriteLine($"{i + 1}.{goals[i].GetName()}");
+                Console.WriteLine($"{i + 1}.{_goals[i].GetName()}");
             }
             Console.Write("Which goal did you accomplish? ");
             int goalOption = int.Parse(Console.ReadLine());
 
-            Goal goal = goals[goalOption-1];
+            Goal goal = _goals[goalOption-1];
 
             if (goal != null)
             {
                 int pointsEarned = goal.RecordEvent();
-                userScore += pointsEarned; 
+                _userScore += pointsEarned; 
                 DetermineUserLevel();
-                Console.WriteLine("You are at level {0}",myLevel);
+                Console.WriteLine("You are at level {0}",_userLevel);
 
                 Console.WriteLine("Congratulations! You have earned {0} points!",pointsEarned);
                 ShowUserScore();
@@ -206,16 +219,16 @@ class Program
     {
         Console.WriteLine("The goals are:");
 
-        if (goals.Count == 0)
+        if (_goals.Count == 0)
         {
             Console.WriteLine("There are no registered targets.");
         }
         else
         {
-            for (int i = 0; i < goals.Count; i++)
+            for (int i = 0; i < _goals.Count; i++)
             {
-                string countText = (goals[i].GetCompletionCount() != -1) ? "-- Currently completed: "+goals[i].GetCompletionCount()+"/"+goals[i].GetTargetCount() : "";
-                Console.WriteLine($"{i + 1}. [{(goals[i].IsComplete() ? 'x' : ' ')}] {goals[i].GetName()} ({goals[i].GetDescription()}) {countText}");
+                string countText = (_goals[i].GetCompletionCount() != -1) ? "-- Currently completed: "+_goals[i].GetCompletionCount()+"/"+_goals[i].GetTargetCount() : "";
+                Console.WriteLine($"{i + 1}. [{(_goals[i].IsComplete() ? 'x' : ' ')}] {_goals[i].GetName()} ({_goals[i].GetDescription()}) {countText}");
             }
             ShowUserScore();
         }
@@ -223,7 +236,7 @@ class Program
 
     static void ShowUserScore()
     {
-        Console.WriteLine("You have {0} points!",userScore);
+        Console.WriteLine("You have {0} points!",_userScore);
     }
 
     static void SaveGoalsAndScore()
@@ -231,12 +244,12 @@ class Program
         string fileName = "goals.txt";
         using (StreamWriter writer = new StreamWriter(fileName))
         {
-            writer.WriteLine($"Levels|{myLevel}|{(string.Join(",", levelsScore))}");
-            foreach (Goal goal in goals)
+            writer.WriteLine($"Levels|{_userLevel}|{(string.Join(",", _levelsScore))}");
+            foreach (Goal goal in _goals)
             {
                 writer.WriteLine(goal.Serialize());
             }
-            writer.WriteLine(userScore);
+            writer.WriteLine(_userScore);
         }
 
         Console.WriteLine("Objectives and score successfully saved.");
@@ -247,7 +260,7 @@ class Program
         string fileName = "goals.txt";
         if (File.Exists(fileName))
         {
-            goals.Clear();
+            _goals.Clear();
             using (StreamReader reader = new StreamReader(fileName))
             {
                 string line;
@@ -256,31 +269,31 @@ class Program
                     if (line.StartsWith("Levels"))
                     {
                         string[] data=line.Split('|');
-                        myLevel=int.Parse(data[1]);
-                        levelsScore=ConvertStringToList(data[2]);
+                        _userLevel=int.Parse(data[1]);
+                        _levelsScore=ConvertStringToList(data[2]);
 
                     }
                     else if (line.StartsWith("SimpleGoal"))
                     {
                         SimpleGoal simpleGoal = SimpleGoal.Deserialize(line.Split('|'));
-                        goals.Add(simpleGoal);
+                        _goals.Add(simpleGoal);
                     }
                     else if (line.StartsWith("EternalGoal"))
                     {
                         EternalGoal eternalGoal = EternalGoal.Deserialize(line.Split('|'));
-                        goals.Add(eternalGoal);
+                        _goals.Add(eternalGoal);
                     }
                     else if (line.StartsWith("ChecklistGoal"))
                     {
                         ChecklistGoal checklistGoal = ChecklistGoal.Deserialize(line.Split('|'));
-                        goals.Add(checklistGoal);
+                        _goals.Add(checklistGoal);
                     }
                     else
                     {
                         int score;
                         if (int.TryParse(line, out score))
                         {
-                            userScore = score;
+                            _userScore = score;
                         }
                     }
                 }

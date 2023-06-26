@@ -1,21 +1,11 @@
 class EternalGoal : Goal
 {
-    private int _rewardPoints;
-    public string Title { get; set; }
-    public bool IsAchieved { get; set; }
-
-    
-
 
     public EternalGoal(string name, string description, int points)
         : base(name, description, points)
     {
     }
 
-    public EternalGoal()
-        : base("", "", 0)
-    {
-    }
 
     // Constructor sin parámetros
     

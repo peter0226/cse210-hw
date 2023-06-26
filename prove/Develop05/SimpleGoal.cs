@@ -1,6 +1,5 @@
 class SimpleGoal : Goal
 {
-    private int _rewardPoints;
     private bool _status=false;
 
     public SimpleGoal(string name, string description, int points)
