@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+//To show creativity, the function to save levels was added
+
 class Program
 {
     static List<Goal> _goals = new List<Goal>();
