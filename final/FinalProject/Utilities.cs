@@ -2,12 +2,11 @@ public class Utilities
 {
     public string FormatDate(DateTime date)
     {
-        // Implementación para formatear una fecha en una cadena específica
-        return "";
+        return date.ToString("dd/MM/yyyy");
     }
 
     public void PrintMessage(string message)
     {
-        // Implementación para imprimir un mensaje en la consola
+        Console.WriteLine(message);
     }
 }

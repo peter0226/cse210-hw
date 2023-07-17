@@ -1,4 +1,3 @@
-
 public class Loan
 {
     private Book book;
@@ -6,14 +5,27 @@ public class Loan
     private DateTime loanDate;
     private DateTime returnDate;
 
+    private DateTime dueDate { get; }
+
+    public Loan(Book book, User user)
+    {
+        this.book = book;
+        this.user = user;
+        this.loanDate = DateTime.Now;
+        this.dueDate = DateTime.Now.AddDays(book.GetMaximumLoanDays());
+    }
+
+    public int GetDaysLate()
+    {
+        int daysLate = (int)Math.Max((DateTime.Now - this.dueDate).TotalDays, 0);
+        //By default, it is 3 days late for testing.
+        return 3;
+        //return daysLate;
+    }
+
     public Book GetBook()
     {
         return book;
-    }
-
-    public void SetBook(Book book)
-    {
-        this.book = book;
     }
 
     public User GetUser()
@@ -21,34 +33,13 @@ public class Loan
         return user;
     }
 
-    public void SetUser(User user)
-    {
-        this.user = user;
-    }
-
     public DateTime GetLoanDate()
     {
         return loanDate;
     }
 
-    public void SetLoanDate(DateTime loanDate)
-    {
-        this.loanDate = loanDate;
-    }
-
     public DateTime GetReturnDate()
     {
         return returnDate;
-    }
-
-    public void SetReturnDate(DateTime returnDate)
-    {
-        this.returnDate = returnDate;
-    }
-
-    public double CalculateLateFee()
-    {
-        // Implementación del cálculo de la tarifa de retraso para el préstamo
-        throw new NotImplementedException();
     }
 }

@@ -1,8 +1,10 @@
+[Serializable]
 public class ReferenceBook : Book
 {
     private int edition;
+    private int MaximumLoanDays=6;
 
-    public ReferenceBook(string title, string author, string genre, string status, int edition) : base(title, author, genre, status)
+    public ReferenceBook(string title, string author, string genre, BookStatus status, int edition) : base(title, author, genre, status)
     {
         this.edition = edition;
     }
@@ -19,7 +21,6 @@ public class ReferenceBook : Book
 
     public override double CalculateLateFee(int daysLate)
     {
-        // Implementación del cálculo de la tarifa de retraso para libros de referencia
-        throw new NotImplementedException();
+        return 0;
     }
 }

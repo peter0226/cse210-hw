@@ -5,7 +5,9 @@ class Program
     static void Main(string[] args)
     {
         Library library = new Library();
-        Menu menu = new Menu(library);
+        LibraryFile libraryFile = new LibraryFile("librarydata.csv");
+
+        Menu menu = new Menu(library, libraryFile);
         menu.ShowMenu();
     }
 }
