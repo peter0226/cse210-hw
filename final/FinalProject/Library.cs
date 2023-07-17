@@ -1,57 +1,57 @@
 public class Library
 {
-    private List<Book> books;
-    private List<User> users;
+    private List<Book> _books;
+    private List<User> _users;
 
     public Library()
     {
-        books = new List<Book>();
-        users = new List<User>();
+        _books = new List<Book>();
+        _users = new List<User>();
     }
 
     public List<User> GetUsers()
     {
-        return users;
+        return _users;
     }
 
     public void AddBook(Book book)
     {
-        books.Add(book);
+        _books.Add(book);
     }
 
     public void AddUser(User user)
     {
-        users.Add(user);
+        _users.Add(user);
     }
 
     public List<Book> GetBooks()
     {
-        return books;
+        return _books;
     }
 
     public void SetBooks(List<Book> books)
     {
-        this.books = books;
+        this._books = books;
     }
 
     public List<Book> SearchBookByTitle(string title)
     {
-        return books.FindAll(book => book.GetTitle().Contains(title, StringComparison.OrdinalIgnoreCase));
+        return _books.FindAll(book => book.GetTitle().Contains(title, StringComparison.OrdinalIgnoreCase));
     }
 
     public User SearchUserByName(string name)
     {
-        return users.Find(user => user.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
+        return _users.Find(user => user.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
     public List<Book> SearchBookByAuthor(string author)
     {
-        return books.FindAll(book => book.GetAuthor().Contains(author, StringComparison.OrdinalIgnoreCase));
+        return _books.FindAll(book => book.GetAuthor().Contains(author, StringComparison.OrdinalIgnoreCase));
     }
 
     public List<Book> SearchBookByGenre(string genre)
     {
-        return books.FindAll(book => book.GetGenre().Contains(genre, StringComparison.OrdinalIgnoreCase));
+        return _books.FindAll(book => book.GetGenre().Contains(genre, StringComparison.OrdinalIgnoreCase));
     }
 
     public bool LoanBook(Book book, User user)
@@ -84,7 +84,7 @@ public class Library
     public void ListAllBooks()
     {
         Console.WriteLine("==== All Books in the Library ====");
-        foreach (Book book in books)
+        foreach (Book book in _books)
         {
             Console.WriteLine($"Title: {book.GetTitle()}");
             Console.WriteLine($"Author: {book.GetAuthor()}");

@@ -1,23 +1,23 @@
 public class Loan
 {
-    private Book book;
-    private User user;
-    private DateTime loanDate;
-    private DateTime returnDate;
+    private Book _book;
+    private User _user;
+    private DateTime _loanDate;
+    private DateTime _returnDate;
 
-    private DateTime dueDate { get; }
+    private DateTime _dueDate { get; }
 
     public Loan(Book book, User user)
     {
-        this.book = book;
-        this.user = user;
-        this.loanDate = DateTime.Now;
-        this.dueDate = DateTime.Now.AddDays(book.GetMaximumLoanDays());
+        this._book = book;
+        this._user = user;
+        this._loanDate = DateTime.Now;
+        this._dueDate = DateTime.Now.AddDays(book.GetMaximumLoanDays());
     }
 
     public int GetDaysLate()
     {
-        int daysLate = (int)Math.Max((DateTime.Now - this.dueDate).TotalDays, 0);
+        int daysLate = (int)Math.Max((DateTime.Now - this._dueDate).TotalDays, 0);
         //By default, it is 3 days late for testing.
         return 3;
         //return daysLate;
@@ -25,21 +25,21 @@ public class Loan
 
     public Book GetBook()
     {
-        return book;
+        return _book;
     }
 
     public User GetUser()
     {
-        return user;
+        return _user;
     }
 
     public DateTime GetLoanDate()
     {
-        return loanDate;
+        return _loanDate;
     }
 
     public DateTime GetReturnDate()
     {
-        return returnDate;
+        return _returnDate;
     }
 }

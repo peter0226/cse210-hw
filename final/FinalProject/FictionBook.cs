@@ -1,22 +1,21 @@
-[Serializable]
 public class FictionBook : Book
 {
-    private string publisher;
-    private int MaximumLoanDays=3;
+    private string _publisher;
+    private int _maximumLoanDays=3;
 
     public FictionBook(string title, string author, string genre, BookStatus status, string publisher) : base(title, author, genre, status)
     {
-        this.publisher = publisher;
+        this._publisher = publisher;
     }
 
     public string GetPublisher()
     {
-        return publisher;
+        return _publisher;
     }
 
     public void SetPublisher(string publisher)
     {
-        this.publisher = publisher;
+        this._publisher = publisher;
     }
 
     public override double CalculateLateFee(int daysLate)

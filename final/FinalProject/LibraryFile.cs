@@ -5,18 +5,18 @@ using System.Text.Json;
 
 public class LibraryFile
 {
-    private string filePath;
+    private string _filePath;
 
     public LibraryFile(string filePath)
     {
-        this.filePath = filePath;
+        this._filePath = filePath;
     }
 
 public void SaveBooks(List<Book> books)
     {
         try
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter writer = new StreamWriter(_filePath))
             {
                 foreach (Book book in books)
                 {
@@ -52,12 +52,12 @@ public void SaveBooks(List<Book> books)
 
         try
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(_filePath))
             {
                 return books;
             }
 
-            using (StreamReader reader = new StreamReader(filePath))
+            using (StreamReader reader = new StreamReader(_filePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)

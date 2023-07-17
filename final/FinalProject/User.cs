@@ -1,29 +1,29 @@
 public class User
 {
-    private string name;
-    private List<Book> borrowedBooks;
-    private List<Loan> loans;
+    private string _name;
+    private List<Book> _borrowedBooks;
+    private List<Loan> _loans;
 
     public User(string name)
     {
-        this.name = name;
-        this.borrowedBooks = new List<Book>();
-        this.loans = new List<Loan>();
+        this._name = name;
+        this._borrowedBooks = new List<Book>();
+        this._loans = new List<Loan>();
     }
 
     public string GetName()
     {
-        return name;
+        return _name;
     }
 
     public void SetName(string name)
     {
-        this.name = name;
+        this._name = name;
     }
 
     public List<Book> GetBorrowedBooks()
     {
-        return borrowedBooks;
+        return _borrowedBooks;
     }
 
     public bool LoanBook(Book book)
@@ -31,10 +31,10 @@ public class User
         if (book.GetStatus() == BookStatus.Available)
         {
             book.SetStatus(BookStatus.OnLoan);
-            borrowedBooks.Add(book);
+            _borrowedBooks.Add(book);
 
             Loan loan = new Loan(book, this);
-            loans.Add(loan);
+            _loans.Add(loan);
 
             return true;
         }
@@ -44,10 +44,10 @@ public class User
 
     public bool ReturnBook(Book book)
     {
-        if (book.GetStatus() == BookStatus.OnLoan && borrowedBooks.Contains(book))
+        if (book.GetStatus() == BookStatus.OnLoan && _borrowedBooks.Contains(book))
         {
             book.SetStatus(BookStatus.Available);
-            borrowedBooks.Remove(book);
+            _borrowedBooks.Remove(book);
             return true;
         }
 
@@ -56,13 +56,13 @@ public class User
 
     public bool HasBorrowedBook(Book book)
     {
-        return borrowedBooks.Contains(book);
+        return _borrowedBooks.Contains(book);
     }
 
     public double CalculateTotalLateFees()
     {
         double totalLateFees = 0;
-        foreach (var loan in loans)
+        foreach (var loan in _loans)
         {
             int daysLate = loan.GetDaysLate();
             double lateFee = loan.GetBook().CalculateLateFee(daysLate);

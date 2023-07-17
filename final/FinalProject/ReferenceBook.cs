@@ -1,22 +1,21 @@
-[Serializable]
 public class ReferenceBook : Book
 {
-    private int edition;
-    private int MaximumLoanDays=6;
+    private int _edition;
+    private int _maximumLoanDays=6;
 
     public ReferenceBook(string title, string author, string genre, BookStatus status, int edition) : base(title, author, genre, status)
     {
-        this.edition = edition;
+        this._edition = edition;
     }
 
     public int GetEdition()
     {
-        return edition;
+        return _edition;
     }
 
     public void SetEdition(int edition)
     {
-        this.edition = edition;
+        this._edition = edition;
     }
 
     public override double CalculateLateFee(int daysLate)

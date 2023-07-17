@@ -10,65 +10,65 @@ public enum BookStatus
 
 public abstract class Book
 {
-    private string title;
-    private string author;
-    private string genre;
-    private BookStatus status;
+    private string _title;
+    private string _author;
+    private string _genre;
+    private BookStatus _status;
 
-    private int MaximumLoanDays=1;
+    private int _maximumLoanDays=1;
 
     public Book(string title, string author, string genre, BookStatus status)
     {
-        this.title = title;
-        this.author = author;
-        this.genre = genre;
-        this.status = status;
+        this._title = title;
+        this._author = author;
+        this._genre = genre;
+        this._status = status;
     }
 
     public string GetTitle()
     {
-        return title;
+        return _title;
     }
 
     public void SetTitle(string title)
     {
-        this.title = title;
+        this._title = title;
     }
 
     public string GetAuthor()
     {
-        return author;
+        return _author;
     }
 
     public void SetAuthor(string author)
     {
-        this.author = author;
+        this._author = author;
     }
 
     public string GetGenre()
     {
-        return genre;
+        return _genre;
     }
 
     public void SetGenre(string genre)
     {
-        this.genre = genre;
+        this._genre = genre;
     }
 
     public BookStatus GetStatus()
     {
-        return status;
+        return _status;
     }
 
     public void SetStatus(BookStatus status)
     {
-        this.status = status;
+        this._status = status;
     }
 
     public abstract double CalculateLateFee(int daysLate);
 
     public double GetMaximumLoanDays()
     {
-        return MaximumLoanDays;
+        return _maximumLoanDays;
     }
 }

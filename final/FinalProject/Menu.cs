@@ -2,13 +2,13 @@ using System;
 
 public class Menu
 {
-    private Library library;
-    private LibraryFile libraryFile;
+    private Library _library;
+    private LibraryFile _libraryFile;
 
     public Menu(Library library, LibraryFile libraryFile)
     {
-        this.library = library;
-        this.libraryFile = libraryFile;
+        this._library = library;
+        this._libraryFile = libraryFile;
     }
 
     public void ShowMenu()
@@ -61,7 +61,7 @@ public class Menu
                     LoadBooksFromFile();
                     break;
                 case 9:
-                    library.ListAllBooks();
+                    _library.ListAllBooks();
                     break;
                 case 10:
                     CreateUser();
@@ -86,7 +86,7 @@ public class Menu
         Console.Write("Enter the title of the book to return: ");
         string title = Console.ReadLine();
 
-        List<Book> foundBooks = library.SearchBookByTitle(title);
+        List<Book> foundBooks = _library.SearchBookByTitle(title);
 
         if (foundBooks.Count == 0)
         {
@@ -122,7 +122,7 @@ public class Menu
             Console.Write("Enter the user's name: ");
             string userName = Console.ReadLine();
 
-            User user = library.SearchUserByName(userName);
+            User user = _library.SearchUserByName(userName);
 
             if (user == null)
             {
@@ -130,7 +130,7 @@ public class Menu
                 return;
             }
 
-            bool bookReturned = library.ReturnBook(selectedBook, user);
+            bool bookReturned = _library.ReturnBook(selectedBook, user);
 
             if (bookReturned)
             {
@@ -147,7 +147,7 @@ public class Menu
         Console.Write("Enter the user's name: ");
         string userName = Console.ReadLine();
 
-        User user = library.SearchUserByName(userName);
+        User user = _library.SearchUserByName(userName);
 
         if (user == null)
         {
@@ -160,7 +160,7 @@ public class Menu
 
     public void ShowUsers()
     {
-        var users = library.GetUsers();
+        var users = _library.GetUsers();
 
         if (users.Count == 0)
         {
@@ -195,7 +195,7 @@ public class Menu
         Console.Write("Enter the name of the user: ");
         string userName = Console.ReadLine();
 
-        User existingUser = library.SearchUserByName(userName);
+        User existingUser = _library.SearchUserByName(userName);
         if (existingUser != null)
         {
             Console.WriteLine("User already exists.");
@@ -203,7 +203,7 @@ public class Menu
         }
 
         User newUser = new User(userName);
-        library.AddUser(newUser);
+        _library.AddUser(newUser);
         Console.WriteLine("User created successfully!");
     }
 
@@ -273,7 +273,7 @@ public class Menu
                 return;
         }
 
-        library.AddBook(book);
+        _library.AddBook(book);
         Console.WriteLine("Book added successfully!");
 
         // Display additional properties of the book type
@@ -306,19 +306,19 @@ public class Menu
             case 1:
                 Console.Write("Enter the title to search: ");
                 string title = Console.ReadLine();
-                var booksByTitle = library.SearchBookByTitle(title);
+                var booksByTitle = _library.SearchBookByTitle(title);
                 DisplayBooks(booksByTitle);
                 break;
             case 2:
                 Console.Write("Enter the author to search: ");
                 string author = Console.ReadLine();
-                var booksByAuthor = library.SearchBookByAuthor(author);
+                var booksByAuthor = _library.SearchBookByAuthor(author);
                 DisplayBooks(booksByAuthor);
                 break;
             case 3:
                 Console.Write("Enter the genre to search: ");
                 string genre = Console.ReadLine();
-                var booksByGenre = library.SearchBookByGenre(genre);
+                var booksByGenre = _library.SearchBookByGenre(genre);
                 DisplayBooks(booksByGenre);
                 break;
             case 4:
@@ -336,7 +336,7 @@ public class Menu
         Console.Write("Enter the title of the book to loan: ");
         string title = Console.ReadLine();
 
-        var books = library.SearchBookByTitle(title);
+        var books = _library.SearchBookByTitle(title);
 
         if (books.Count == 0)
         {
@@ -352,9 +352,9 @@ public class Menu
                 string userName = Console.ReadLine();
 
                 //User user = new User(userName);
-                User user = library.SearchUserByName(userName);
+                User user = _library.SearchUserByName(userName);
 
-                bool loanSuccess = library.LoanBook(book, user);
+                bool loanSuccess = _library.LoanBook(book, user);
 
                 if (loanSuccess)
                 {
@@ -415,7 +415,7 @@ public class Menu
     Console.Write("Enter the user's name: ");
     string userName = Console.ReadLine();
 
-    User user = library.SearchUserByName(userName);
+    User user = _library.SearchUserByName(userName);
 
     if (user == null)
     {
@@ -448,7 +448,7 @@ public class Menu
         Console.Write("Enter the book title: ");
         string bookTitle = Console.ReadLine();
 
-        List<Book> foundBooks = library.SearchBookByTitle(bookTitle);
+        List<Book> foundBooks = _library.SearchBookByTitle(bookTitle);
 
         if (foundBooks.Count == 0)
         {
@@ -465,13 +465,13 @@ public class Menu
 
      public void SaveBooksToFile()
     {
-        libraryFile.SaveBooks(library.GetBooks());
+        _libraryFile.SaveBooks(_library.GetBooks());
         Console.WriteLine("Books saved to file successfully!");
     }
 
     public void LoadBooksFromFile()
     {
-        library.SetBooks(libraryFile.LoadBooks());
+        _library.SetBooks(_libraryFile.LoadBooks());
         Console.WriteLine("Books loaded from file successfully!");
     }
 }
